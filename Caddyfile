@@ -1,0 +1,17 @@
+{
+  email {$ACME_EMAIL}
+}
+
+{$APP_DOMAIN} {
+  encode zstd gzip
+
+  route /api/* {
+    reverse_proxy backend:5000
+  }
+
+  route /socket.io/* {
+    reverse_proxy backend:5000
+  }
+
+  reverse_proxy frontend:80
+}
